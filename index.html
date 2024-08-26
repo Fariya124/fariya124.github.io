@@ -468,13 +468,16 @@
                 allKeys.push(key); // Add the key to the array
                 const telegram = window.Telegram.WebApp;
                 try {
-                    await Telegram.WebApp.sendData({
-                        method: 'sendMessage',
-                        parameters: {
-                            chat_id: Telegram.WebApp.initDataUnsafe.user.id,
-                            text: `Here are your generated keys:\n${keysToShare}`,
-                        },
+                    const keysToShare = allKeys.join('\n');
+                    Telegram.WebApp.MainButton.onClick(() => {
+                    Telegram.WebApp.openTelegramModal({
+                      type: 'sendMessage',
+                      params: {
+                        chat_id: Telegram.WebApp.initDataUnsafe.user.id,
+                        text: `Here are your generated keys:\n${keysToShare}`,
+                      },
                     });
+                  });
                 } catch (error) {
                     appendToDisplay(error);
                 }
