@@ -470,10 +470,10 @@
                 try {
                     await telegram.sendData({
                         type: 'message',
-                        text: `Here are your generated keys:\n${keysToShare}`,
+                        text: `Here are your generated keys:\n${key}`,
                     });
                 } catch (error) {
-                    console.error('Error sending keys to Telegram:', error);
+                    appendToDisplay(error);
                 }
             } else {
                 //appendToDisplay('Generating next key...');
@@ -701,4 +701,4 @@
     </script>
     <div class="version">v1.2.2</div>
 </body>
-  </html>
+</html>
