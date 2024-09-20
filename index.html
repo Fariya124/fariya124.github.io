@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>تخمین قیمت همستر کامبت</title>
+
+        <script type="module" crossorigin src="script.js"></script>
+
+        <link rel="stylesheet" crossorigin href="style.css" />
+
+        <link rel="icon" href="hamster.png" type="image/png" />
+    </head>
+
+    <body>
+        <center id="container-1">
+            <div class="move"></div>
+
+            <div class="big1">
+                <form id="form">
+                    <h2>تخمین قیمت ارز همستر</h2>
+
+                    <p>پروفیت خود را وارد کنید:</p>
+
+                    <input type="number" id="profit" class="input" placeholder="پروفیت اکانت" min="1" max="15000000" required />
+
+                    <p>تعداد کلید اکانت خود را وارد کنید:</p>
+
+                    <input type="number" id="key" class="input" placeholder="تعداد کلید" min="0" max="2000" required />
+
+                    <p>تعداد افرادی که به بازی دعوت کرده‌اید را وارد کنید:</p>
+
+                    <input type="number" id="referral" class="input" placeholder="تعداد رفرال" min="0" max="1000000" required />
+
+                    <p >لول اکانت خود را وارد کنید:</p>
+
+                    <input type="number" id="level" class="input" placeholder="حداقل لول 5 و حداکثر 11" max="11" min="5" required />
+
+                    <p id="desc">لطفا قبل از محاسبه دستاورد های خودتون رو انتخاب کنید</p>
+
+                    <div id="select" class="gang input">افزودن دستاورد</div>
+
+                    <br />
+                    <button id="calculate" class="gang">جمع بندی</button>
+                    <a href="https://t.me/HamesterG"> <input style="height: 60px; width: 120px; font-size: 18px; font-weight: 600; box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); background-color: #f0f0f0; color: #333; margin:5px; padding: 15px 15px; border-radius: 5px; cursor: none;" type="button" value="کانال ایردراپ" /></a>
+                    <a href="https://t.me/best_technicals"> <input style="height: 60px; width: 120px; font-size: 18px; font-weight: 600; box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); background-color: #f0f0f0; color: #333; margin:5px; padding: 15px 15px; border-radius: 5px; cursor: none;" type="button" value="کانال سازنده" /></a>
+
+                </form>
+            </div>
+        </center>
+
+        <div id="root"></div>
+
+        <script>
+            const dollarRate = 59700;
+            var container = document.getElementById("container-1");
+            var level = document.getElementById("level");
+            var profit = document.getElementById("profit");
+            var key = document.getElementById("key");
+            var referral = document.getElementById("referral");
+            var achievements = document.getElementById("root");
+            document.getElementById("select").onclick = function () {
+                container.style.display = "none";
+                achievements.style.display = "block";
+            };
+            document.getElementById("form").onsubmit = function (event) {
+                event.preventDefault();
+                var rate = 0;
+                switch (level.value) {
+                    case "5":
+                    case "6":
+                        rate = 0.000007;
+                        break;
+                    case "7":
+                        rate = 0.0000075;
+                        break;
+                    case "8":
+                        rate = 0.000008;
+                        break;
+                    case "9":
+                        rate = 0.0000085;
+                        break;
+                    case "10":
+                        rate = 0.00001;
+                        break;
+                    case "11":
+                        rate = 0.000012;
+                        break;
+                    default:
+                        return;
+                }
+                var userProfit = Number(profit.value);
+                if (referral.value > 0 && referral.value <= 10) {
+                    userProfit += 200_000;
+                } else if (referral.value > 10 && referral.value <= 30) {
+                    userProfit += 400_000;
+                } else if (referral.value > 30 && referral.value <= 50) {
+                    userProfit += 600_000;
+                } else if (referral.value > 50 && referral.value <= 100) {
+                    userProfit += 800_000;
+                } else if (referral.value > 100) {
+                    userProfit += 1_000_000;
+                }
+                userProfit += key.value * 4000;
+                if (window.achievementProfit) {
+                    userProfit += window.achievementProfit;
+                }
+                var dollar = (userProfit * rate).toFixed(2);
+                var toman = new Intl.NumberFormat("fa-IR").format(dollar * dollarRate);
+                document.getElementById("form").innerHTML = `<h2>تخمین قیمت ارز همستر</h2>
+
+<p>ارزش ارز همستر شما :</p>
+
+<div class="input" id="show" disabled>${dollar} دلار
+
+<br>${toman} تومان
+
+</div><button type="button" class="gang" onclick="location.reload(true)">صفحه اصلی</button>`;
+            };
+        </script>
+    </body>
+</html>
