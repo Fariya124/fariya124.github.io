@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+    <style>
+        #log {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Telegram Mini App</h1>
+    <div id="log"></div>
+    
+    <script>
+        function logMessage(message) {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += message + '<br>';
+            console.log(message); // also log to console
+        }
+
+        // Initialize Telegram Web App
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        logMessage("User  ID: " + userId);
+        
+        console.log("User ID: ", userId);
+    </script>
+
+</body>
+</html>
